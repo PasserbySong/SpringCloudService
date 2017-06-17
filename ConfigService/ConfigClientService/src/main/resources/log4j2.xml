@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{ABSOLUTE} &lt;%c&gt; %5p [%t]: %m%n"/>
+        </Console>
+
+        <!-- name可以自定义，作用是在Loggers中AppenderRef中使用 -->
+        <!-- fileName定义输出文件名称（当前文件） -->
+        <!-- filePattern定义输出文件名称（文件满足条件后自动截断，生成历史文件） -->
+        <RollingRandomAccessFile name="SERVICE_LOG_FILE" fileName="logs/spring-boot-rest/service.log"
+                                 filePattern="logs/$${date:yyyy-MM}/service-%d{yyyy-MM-dd}-%i.log.gz">
+            <!-- <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" /> -->
+            <PatternLayout pattern="%d{ABSOLUTE} &lt;%c&gt; %5p [%t]: %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy/>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="SERVICE_LOG_FILE_ERROR" fileName="logs/spring-boot-rest/service-error.log"
+                                 filePattern="logs/$${date:yyyy-MM}/service-error-%d{yyyy-MM-dd}-%i.log.gz">
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="%d{ABSOLUTE} &lt;%c&gt; %5p [%t]: %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy/>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="JOB_LOG_FILE" fileName="logs/spring-boot-rest/job.log"
+                                 filePattern="logs/$${date:yyyy-MM}/job-%d{yyyy-MM-dd}-%i.log.gz">
+            <!-- <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" /> -->
+            <PatternLayout pattern="%d{ABSOLUTE} &lt;%c&gt; %5p [%t]: %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <DefaultRolloverStrategy/>
+        </RollingRandomAccessFile>
+
+    </Appenders>
+    <Loggers>
+        <!-- Root Logger -->
+        <Root level="INFO">
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+
+        <!-- - - - - - - - BEGIN: DAO LOGGERS - - - - - - - -->
+        <Logger name="com.xiejs.client" level="DEBUG" additivity="true">
+            <AppenderRef ref="SERVICE_LOG_FILE"/>
+            <AppenderRef ref="SERVICE_LOG_FILE_ERROR"/>
+        </Logger>
+
+        <!-- - - - - - - - END: DAO LOGGERS - - - - - - - -->
+
+
+    </Loggers>
+</Configuration>

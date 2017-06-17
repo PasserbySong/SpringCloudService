@@ -1,5 +1,6 @@
 package com.xiejs.client;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -28,6 +29,11 @@ public class TestController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add() {
         return testService.add();
+    }
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String test() {
+        return testService.test();
     }
 
 }
