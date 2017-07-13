@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kedun.authmgr.user.dao.UserDepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.kedun.authmgr.user.model.UserDepartment" >
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="create_dt" property="createDt" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.kedun.authmgr.user.model.UserDepartment" >
+    insert ignore into user_department (user_id, dept_id, create_dt
+      )
+    values (#{userId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, #{createDt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+  <delete id="deleteByUser" parameterType="java.lang.Integer" >
+    delete from user_department
+    where user_id = #{userId}
+  </delete>
+
+  <update id="updateByUser" parameterType="com.kedun.authmgr.user.model.UserDepartment" >
+    update user_department set  dept_id = #{deptId,jdbcType=INTEGER},create_dt = #{createDt,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

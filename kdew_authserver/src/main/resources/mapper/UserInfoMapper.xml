@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kedun.authmgr.user.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.kedun.authmgr.user.model.UserInfo" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_code" property="userCode" jdbcType="VARCHAR" />
+    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="login_pwd" property="loginPwd" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <result column="user_status" property="userStatus" jdbcType="TINYINT" />
+    <result column="create_user" property="createUser" jdbcType="INTEGER" />
+    <result column="create_dt" property="createDt" jdbcType="TIMESTAMP" />
+    <result column="update_dt" property="updateDt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, user_code, login_name, login_pwd, user_name, phone, dept_name, user_status,
+    create_user, create_dt, update_dt
+  </sql>
+
+  <sql id="base" >
+    user_id userId, user_code userCode, login_name loginName, login_pwd loginPwd, user_name userName, phone, dept_name deptName, user_status userStatus,
+    create_user createUser,create_dt createDt, update_dt update_dt
+  </sql>
+
+  <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_info
+    where user_code = #{userCode,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from user_info
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <select id="userLogin" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_info
+    where login_name = #{loginName,jdbcType=VARCHAR} and login_pwd = #{loginPwd,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByCode" parameterType="java.lang.String" >
+    delete from user_info
+    where user_code = #{userCode,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.kedun.authmgr.user.model.UserInfo"  useGeneratedKeys="true" keyProperty="userId">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userCode != null" >
+        user_code,
+      </if>
+      <if test="loginName != null" >
+        login_name,
+      </if>
+      <if test="loginPwd != null" >
+        login_pwd,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="deptName != null" >
+        dept_name,
+      </if>
+      <if test="userStatus != null" >
+        user_status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createDt != null" >
+        create_dt,
+      </if>
+      <if test="updateDt != null" >
+        update_dt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userCode != null" >
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPwd != null" >
+        #{loginPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null" >
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        #{userStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDt != null" >
+        #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.kedun.authmgr.user.model.UserInfo" >
+    update user_info
+    <set >
+      <if test="userCode != null" >
+        user_code = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPwd != null" >
+        login_pwd = #{loginPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null" >
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        user_status = #{userStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createDt != null" >
+        create_dt = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDt != null" >
+        update_dt = #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+  <select id="select" resultType="java.util.Map">
+    select
+    <choose>
+      <when test="fieldStr!=''">
+        ${fieldStr}
+      </when>
+      <otherwise>
+        <include refid="base" />
+      </otherwise>
+    </choose>
+    from user_info
+    <where>
+      ${queryStr}
+    </where>
+  </select>
+
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kedun.authmgr.authority.dao.ActionInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.kedun.authmgr.authority.model.ActionInfo" >
+    <id column="action_id" property="actionId" jdbcType="INTEGER" />
+    <result column="system_name" property="systemName" jdbcType="VARCHAR" />
+    <result column="action_name" property="actionName" jdbcType="VARCHAR" />
+    <result column="display_name" property="displayName" jdbcType="VARCHAR" />
+    <result column="controller_name" property="controllerName" jdbcType="VARCHAR" />
+    <result column="action_status" property="actionStatus" jdbcType="TINYINT" />
+    <result column="create_dt" property="createDt" jdbcType="TIMESTAMP" />
+    <result column="update_dt" property="updateDt" jdbcType="TIMESTAMP" />
+    <result column="dsl_string" property="dslString" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    action_id, system_name, action_name, display_name, controller_name, action_status, 
+    create_dt, update_dt,dsl_string
+  </sql>
+
+  <sql id="base" >
+    action_id actionId, system_name systemName, action_name actionName, display_name displayName, controller_name controllerName, action_status actionStatus,
+    create_dt createDt, update_dt updateDt,dsl_string dslString
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from action_info
+    where action_id = #{actionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from action_info
+    where action_id = #{actionId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.kedun.authmgr.authority.model.ActionInfo" useGeneratedKeys="true" keyProperty="actionId">
+    insert into action_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="actionId != null" >
+        action_id,
+      </if>
+      <if test="systemName != null" >
+        system_name,
+      </if>
+      <if test="actionName != null" >
+        action_name,
+      </if>
+      <if test="displayName != null" >
+        display_name,
+      </if>
+      <if test="controllerName != null" >
+        controller_name,
+      </if>
+      <if test="actionStatus != null" >
+        action_status,
+      </if>
+      <if test="createDt != null" >
+        create_dt,
+      </if>
+      <if test="updateDt != null" >
+        update_dt,
+      </if>
+      <if test="dslString != null" >
+        dsl_string,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="actionId != null" >
+        #{actionId,jdbcType=INTEGER},
+      </if>
+      <if test="systemName != null" >
+        #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null" >
+        #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null" >
+        #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="controllerName != null" >
+        #{controllerName,jdbcType=VARCHAR},
+      </if>
+      <if test="actionStatus != null" >
+        #{actionStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDt != null" >
+        #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dslString != null" >
+        #{dslString,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.kedun.authmgr.authority.model.ActionInfo" >
+    update action_info
+    <set >
+      <if test="systemName != null" >
+        system_name = #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null" >
+        action_name = #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null" >
+        display_name = #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="controllerName != null" >
+        controller_name = #{controllerName,jdbcType=VARCHAR},
+      </if>
+      <if test="actionStatus != null" >
+        action_status = #{actionStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createDt != null" >
+        create_dt = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDt != null" >
+        update_dt = #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dslString != null" >
+        dsl_string = #{dslString,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where action_id = #{actionId,jdbcType=INTEGER}
+  </update>
+
+  <select id="select" resultType="java.util.Map">
+    select
+    <choose>
+      <when test="fieldStr!=''">
+        ${fieldStr}
+      </when>
+      <otherwise>
+        <include refid="base" />
+      </otherwise>
+    </choose>
+    from action_info
+    <where>
+      ${queryStr}
+    </where>
+  </select>
+
+</mapper>
