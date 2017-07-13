@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kedun.authmgr.authority.dao.UserGroupActionMapper" >
+  <resultMap id="BaseResultMap" type="com.kedun.authmgr.authority.model.UserGroupAction" >
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="action_id" property="actionId" jdbcType="INTEGER" />
+    <result column="create_dt" property="createDt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="insert" parameterType="com.kedun.authmgr.authority.model.UserGroupAction" >
+    insert ignore into user_group_action (group_id, action_id, create_dt
+      )
+    values (#{groupId,jdbcType=INTEGER}, #{actionId,jdbcType=INTEGER}, #{createDt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+  <delete id="delete" parameterType="com.kedun.authmgr.authority.model.UserGroupAction" >
+    delete from user_group_action
+    where group_id = #{groupId,jdbcType=INTEGER} and action_id = #{actionId,jdbcType=INTEGER}
+  </delete>
+
+  <select id="selectActionByGroup" parameterType="java.lang.Integer" resultType="java.util.Map">
+    SELECT	a.action_id actionId,a.system_name systemName,a.action_name actionName,
+    a.display_name displayName,a.controller_name controllerName,a.dsl_string dslString
+    FROM	user_group_action ga JOIN action_info a ON a.action_id=ga.action_id and a.action_status=0
+    where ga.group_id=#{groupId,jdbcType=INTEGER}
+  </select>
+
+</mapper>

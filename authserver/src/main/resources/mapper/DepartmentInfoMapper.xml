@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kedun.authmgr.department.dao.DepartmentInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.kedun.authmgr.department.model.DepartmentInfo" >
+    <id column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <result column="link_path" property="linkPath" jdbcType="VARCHAR" />
+    <result column="province_id" property="provinceId" jdbcType="BIGINT" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_id" property="cityId" jdbcType="BIGINT" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="county_id" property="countyId" jdbcType="BIGINT" />
+    <result column="county_name" property="countyName" jdbcType="VARCHAR" />
+    <result column="town_id" property="townId" jdbcType="BIGINT" />
+    <result column="town_name" property="townName" jdbcType="VARCHAR" />
+    <result column="village_id" property="villageId" jdbcType="BIGINT" />
+    <result column="village_name" property="villageName" jdbcType="VARCHAR" />
+    <result column="create_dt" property="createDt" jdbcType="TIMESTAMP" />
+    <result column="update_dt" property="updateDt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dept_id, parent_id, dept_name, link_path, province_id, province_name, city_id, city_name, 
+    county_id, county_name, town_id, town_name, village_id, village_name, create_dt, 
+    update_dt
+  </sql>
+
+  <sql id="provice" >
+    provice_id proviceId, provice_name proviceName
+  </sql>
+
+  <sql id="city" >
+    city_id cityId, city_name cityName
+  </sql>
+
+  <sql id="county" >
+    county_id countyId, county_name countyName
+  </sql>
+
+  <sql id="town" >
+    town_id townId, town_name townName
+  </sql>
+
+  <sql id="village" >
+    village_id villageId, village_name villageName
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from department_info
+    where dept_id = #{deptId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from department_info
+    where dept_id = #{deptId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.kedun.authmgr.department.model.DepartmentInfo" useGeneratedKeys="true" keyProperty="deptId">
+    insert into department_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deptId != null" >
+        dept_id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="deptName != null" >
+        dept_name,
+      </if>
+      <if test="linkPath != null" >
+        link_path,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="provinceName != null" >
+        province_name,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="countyId != null" >
+        county_id,
+      </if>
+      <if test="countyName != null" >
+        county_name,
+      </if>
+      <if test="townId != null" >
+        town_id,
+      </if>
+      <if test="townName != null" >
+        town_name,
+      </if>
+      <if test="villageId != null" >
+        village_id,
+      </if>
+      <if test="villageName != null" >
+        village_name,
+      </if>
+      <if test="createDt != null" >
+        create_dt,
+      </if>
+      <if test="updateDt != null" >
+        update_dt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="deptName != null" >
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkPath != null" >
+        #{linkPath,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=BIGINT},
+      </if>
+      <if test="provinceName != null" >
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="countyId != null" >
+        #{countyId,jdbcType=BIGINT},
+      </if>
+      <if test="countyName != null" >
+        #{countyName,jdbcType=VARCHAR},
+      </if>
+      <if test="townId != null" >
+        #{townId,jdbcType=BIGINT},
+      </if>
+      <if test="townName != null" >
+        #{townName,jdbcType=VARCHAR},
+      </if>
+      <if test="villageId != null" >
+        #{villageId,jdbcType=BIGINT},
+      </if>
+      <if test="villageName != null" >
+        #{villageName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDt != null" >
+        #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.kedun.authmgr.department.model.DepartmentInfo" >
+    update department_info
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="deptName != null" >
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkPath != null" >
+        link_path = #{linkPath,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=BIGINT},
+      </if>
+      <if test="provinceName != null" >
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="countyId != null" >
+        county_id = #{countyId,jdbcType=BIGINT},
+      </if>
+      <if test="countyName != null" >
+        county_name = #{countyName,jdbcType=VARCHAR},
+      </if>
+      <if test="townId != null" >
+        town_id = #{townId,jdbcType=BIGINT},
+      </if>
+      <if test="townName != null" >
+        town_name = #{townName,jdbcType=VARCHAR},
+      </if>
+      <if test="villageId != null" >
+        village_id = #{villageId,jdbcType=BIGINT},
+      </if>
+      <if test="villageName != null" >
+        village_name = #{villageName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        create_dt = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDt != null" >
+        update_dt = #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where dept_id = #{deptId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAll" resultType="java.util.Map">
+    select
+    dept_id deptId, parent_id parentId, dept_name deptName, link_path linkPath, province_id provinceId, province_name provinceName, city_id cityId, city_name cityName,
+    county_id countyId, county_name countyName, town_id townId, town_name townName, village_id villageId, village_name villageName
+    from department_info
+    order by parent_id
+  </select>
+
+  <select id="selectGB" resultType="java.util.Map">
+    select
+    <choose>
+      <when test="type==0">
+        <include refid="provice" />
+        from position_provice
+      </when>
+      <when test="type==1">
+        <include refid="city" />
+        from position_city where province_id=#{id,jdbcType=VARCHAR}
+      </when>
+      <when test="type==2">
+        <include refid="county" />
+        from position_county where city_id=#{id,jdbcType=VARCHAR}
+      </when>
+      <when test="type==3">
+        <include refid="town" />
+        from position_town where county_id=#{id,jdbcType=VARCHAR}
+      </when>
+      <otherwise>
+        <include refid="village" />
+        from position_village where town_id=#{id,jdbcType=VARCHAR}
+      </otherwise>
+    </choose>
+  </select>
+
+</mapper>
